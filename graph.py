@@ -2,8 +2,10 @@
 import json
 import os
 import math
+import requests
 
-timeseries = json.loads(open("timeseries.json","r").read())
+# timeseries = json.loads(open("timeseries.json","r").read())
+timeseries = json.loads(requests.get("https://pomber.github.io/covid19/timeseries.json").content)
 
 caseTotals = {}
 for country in timeseries:
