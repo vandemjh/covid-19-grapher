@@ -1,12 +1,11 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+# This workflow will install Python dependencies, run graph, commit and push.
 
 name: Python application
 
 on:
-  # [push, pull_request]
-  schedule:
-    - cron: "0 */12 * * *"
+  [push, pull_request]
+  # schedule:
+  # - cron: "0 */12 * * *"
 
 jobs:
   pull_commit:
@@ -14,8 +13,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      #        with:
-      #          path: main
       - name: Hello world action step
         run: |
           echo Hello world!
@@ -31,7 +28,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run graph.py
-        run: python graph.py
+        run: python3 graph.py
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
