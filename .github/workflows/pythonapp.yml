@@ -4,10 +4,9 @@
 name: Python application
 
 on:
-  [push, pull_request]
-  #schedule:
-  #- cron: "2 *"
-  #"0 */12 * * *"
+  # [push, pull_request]
+  schedule:
+    - cron: "0 */12 * * *"
 
 jobs:
   pull_commit:
