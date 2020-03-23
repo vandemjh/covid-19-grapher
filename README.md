@@ -14,4 +14,4 @@ Using past trends, this COVID-19 grapher predicts how many fatalities are expect
 * Need to update from data continously
 
 ## Action Status
-![.github/workflows/pythonapp.yml](https://github.com/vandemjh/covid-19-grapher/workflows/.github/workflows/pythonapp.yml/badge.svg?branch=master)
+![Python application](https://github.com/vandemjh/covid-19-grapher/workflows/Python%20application/badge.svg?branch=master)
