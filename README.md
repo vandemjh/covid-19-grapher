@@ -1,4 +1,5 @@
 # COVID 19 Fatality/New Case Predictor
+https://vandemjh.github.io/covid-19-grapher/
 Using past trends, this COVID-19 grapher predicts how many fatalities are expected on a day, for a certain time, and total fatality count.
 
 ## Requirements
