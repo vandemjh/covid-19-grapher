@@ -18,8 +18,8 @@ jobs:
         with:
           path: main
       - name: Hello world action step
-        uses: ./main/
-        id: hello
+        run: |
+          echo Hello world!
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
