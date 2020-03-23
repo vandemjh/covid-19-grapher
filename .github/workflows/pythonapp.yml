@@ -35,7 +35,6 @@ jobs:
         run: python graph.py
       - name: Commit files
         run: |
-          cd main
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add graph.png
@@ -44,4 +43,3 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          directory: main
