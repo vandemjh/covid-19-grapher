@@ -3,6 +3,7 @@ import json
 import os
 import math
 import requests
+import datetime
 from utils import skipOver
 
 # timeseries = json.loads(open("timeseries.json","r").read())
@@ -40,7 +41,8 @@ plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="
 # list(lambda d: "" if list(dates).index(d) % 2 == 0 else d)
 
 # plt.suptitle('Number of occurances by code fragement (10% of values)', fontsize = 12)
-ax.set_title("Number of cases over time")
+dateTime = datetime.datetime.today()
+ax.set_title("Number of cases over time as of " + str(dateTime.month) + "-" + str(dateTime.day) + " @ " + str(dateTime.hour) + ":" + (str(dateTime.minute)))
 # plt.show()
 plt.savefig("covid")
 plt.close(fig)
