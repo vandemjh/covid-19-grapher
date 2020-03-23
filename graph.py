@@ -4,19 +4,16 @@ import os
 import math
 import requests
 import datetime
-from utils import skipOver
+from utils import skipOver, getTotalCasesByDay, getCountriesInfectedTotals, getTopCountriesInfected
 
 # timeseries = json.loads(open("timeseries.json","r").read())
 timeseries = json.loads(requests.get("https://pomber.github.io/covid19/timeseries.json").content)
 
-caseTotals = {}
-for country in timeseries:
-    for day in timeseries[country]:
-        if (not day["date"] in caseTotals):
-            caseTotals.update({day["date"] : day["confirmed"]})
-        else:
-            caseTotals[day["date"]] += day["confirmed"]
-
+numberOfCountries = 5
+caseTotals = getTotalCasesByDay(timeseries)
+# toPrint = (getCountriesInfectedTotals(timeseries))
+print(getTopCountriesInfected(timeseries, 5))
+exit()
 
 # print (caseTotals)
 dates = caseTotals.keys()
