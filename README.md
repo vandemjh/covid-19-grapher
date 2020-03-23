@@ -2,6 +2,12 @@
 https://vandemjh.github.io/covid-19-grapher/
 Using past trends, this COVID-19 grapher predicts how many fatalities are expected on a day, for a certain time, and total fatality count.
 
+
+## To Do
+* Put estimated fatalities not just cases over time
+* Calcualte rate of growth at that certain time
+* Allow user to input time, have valid ranges (before 1-22, or before first reported case, after current date, which is date of graph), just correspond to y axis (number of cases), if in the future, input x into rate of growth based on time calculated by time from now
+* Add style sheet to make custom bootstrap
 ## Requirements
 * As a public health official, I want to be able to estimate how many new cases/fatalities of COVID-19 I should expected that way I can better prepare to treat an influx of patients.
 * As a government official, I want to guage the potential loss due to COVID-19 so I can develop policies accordingly.
