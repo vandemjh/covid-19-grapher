@@ -1,5 +1,5 @@
 # COVID 19 Fatality/New Case Predictor
-Using past trends, this COIVD=19 grapher predicts how many fatalities are expected on a day, for a certain time, and total fatality count.
+Using past trends, this COVID-19 grapher predicts how many fatalities are expected on a day, for a certain time, and total fatality count.
 
 ## Requirements
 * As a public health official, I want to be able to estimate how many new cases/fatalities of COVID-19 I should expected that way I can better prepare to treat an influx of patients.
