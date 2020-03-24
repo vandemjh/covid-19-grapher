@@ -1,3 +1,4 @@
+import datetime
 
 def skipOver(dates, skipSize):
     toReturn = []
@@ -19,26 +20,41 @@ def getTotalCasesByDay(timeseries):
                 caseTotals[day["date"]] += day["confirmed"]
     return caseTotals
 
-# Returns the total cases per day for numberOfCountries as { country : [ "date" : total cases on that date ] }
-def getTopCasesByCountry(timeseries, numberOfCountries):
+# Returns the total cases per day for numberOfCountries as { country : { "date" : total cases on that date } }
+def getCasesByCountry(timeseries):
     toReturn = {}
     for country in timeseries:
         for day in timeseries[country]:
-            if (not day["date"] in toReturn):
-                toReturn.update({day["date"] : day["confirmed"]})
-            else:
-                toReturn[day["date"]] += day["confirmed"]
+            if (not country in toReturn):
+                toReturn.update({country : {day["date"] : day["confirmed"]}})
+            else: # (not day["date"] in toReturn[country]):
+                toReturn[country].update({day["date"] : day["confirmed"]})
+            # else:
+                # toReturn[country[day["date"]]] += day["confirmed"]
     return toReturn
 
 # Returns countries as { country : number of cases }
 def getCountriesInfectedTotals(timeseries):
     toReturn = {}
-    for country in timeseries:
-        for day in timeseries[country]:
-            if (not country in toReturn):
-                toReturn.update({country : day["confirmed"]})
+    toIterate = getCasesByCountry(timeseries)
+    dateTime = datetime.datetime.today()
+    for country in toIterate:
+        if (not country in toReturn):
+            toGet = str(dateTime.year) + "-" + str(dateTime.month) + "-" + str(dateTime.day)
+            if (toGet in toIterate[country]):
+                toReturn.update({country : toIterate[country][toGet]})
             else:
-                toReturn[country] += day["confirmed"]
+                day = dateTime.day - 1
+                month = dateTime.month
+                year = dateTime.year
+                toGet = str(year if day > 0 and month > 0 else year - 1) + "-" + str(month if day > 0 else month - 1) + "-" + str(day if day > 0 else 1)
+                toReturn.update({country : toIterate[country][toGet]})
+    # for country in toIterate:
+    #     for day in toIterate[country]:
+    #         if (not country in toReturn):
+    #             toReturn.update({country : toIterate[country][day]})
+    #         else:
+    #             toReturn[country] += toIterate[country][day]
     return toReturn
 
 # Returns top maxCountries most infected countries as { country : number of cases }
@@ -48,5 +64,6 @@ def getTopCountriesInfected(timeseries, maxCountries):
     for i in range(maxCountries):
         nextTop = (max(toPop, key=toPop.get))
         numInfected = toPop[nextTop]
-        toReturn.update({nextTop : toPop.pop(nextTop)})
+        toReturn.update({nextTop : numInfected})
+        toPop.pop(nextTop)
     return toReturn

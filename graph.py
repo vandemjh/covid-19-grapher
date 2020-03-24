@@ -45,5 +45,6 @@ def createScatter(dates, cases, country, fileName):
     plt.close(fig)
 
 createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
-print(getTopCountriesInfected(timeseries, 5))
+print(getCasesByCountry(timeseries)["Norway"])
+print(getCountriesInfectedTotals(timeseries)["Norway"])
     # print (country)
