@@ -48,5 +48,5 @@ def getTopCountriesInfected(timeseries, maxCountries):
     for i in range(maxCountries):
         nextTop = (max(toPop, key=toPop.get))
         numInfected = toPop[nextTop]
-        toReturn.update({toPop.pop(nextTop): nextTop})
+        toReturn.update({nextTop : toPop.pop(nextTop)})
     return toReturn
