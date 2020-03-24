@@ -6,6 +6,9 @@ import requests
 import datetime
 from utils import *
 
+# Setting for matplotlib charts
+AXIS_SETTINGS = [.167,.167,.7,.7]
+
 # timeseries = json.loads(open("timeseries.json","r").read())
 timeseries = json.loads(requests.get("https://pomber.github.io/covid19/timeseries.json").content)
 
@@ -26,10 +29,10 @@ except:
 
 
 def createScatter(dates, cases, country, fileName):
-    axesSettings = [.167,.167,.7,.7]
+
 
     fig = plt.figure()
-    ax = fig.add_axes(axesSettings)
+    ax = fig.add_axes(AXIS_SETTINGS)
     ax.scatter(range(len(dates)), cases)
     ax.set_xlabel("Dates")
     ax.set_ylabel("Number of Cases")
@@ -45,7 +48,6 @@ def createScatter(dates, cases, country, fileName):
     plt.close(fig)
 
 createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
-# print(getCasesByCountry(timeseries)["Norway"])
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
 
@@ -79,3 +81,24 @@ with open("index.html", "w") as html:
     startDropdown = index.find("<!-- DROPDOWN_DATA_START_HERE -->") + len("<!-- DROPDOWN_DATA_START_HERE -->")
     endDropdown = index.find("<!-- DROPDOWN_DATA_END_HERE -->")
     html.write(index[0:startDropdown] + "\n" + dropdown + "\n" + index[endDropdown:len(index)])
+
+
+
+casesByCountry = getCasesByCountry(timeseries)
+fig = plt.figure()
+ax = fig.add_axes(AXIS_SETTINGS)
+
+for country in casesByCountry:
+    if (country in mostInfected):
+        dates = list(casesByCountry[country].keys())
+        cases = list(casesByCountry[country].values())
+        ax.plot(range(len(dates)), cases, label=country)
+
+plt.legend(loc="upper left");
+ax.set_xlabel("Dates")
+ax.set_ylabel("Number of Cases")
+plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+dateTime = datetime.datetime.today()
+ax.set_title("Cases in top " + str(COUNTRIES_IN_TABLE) + " Infected Countries")
+plt.savefig("top")
+plt.close(fig)
