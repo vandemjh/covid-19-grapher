@@ -33,7 +33,7 @@ def createScatter(dates, cases, country, fileName):
 
     fig = plt.figure()
     ax = fig.add_axes(AXIS_SETTINGS)
-    ax.scatter(range(len(dates)), cases)
+    ax.scatter(list(range(len(dates))), list(cases))
     ax.set_xlabel("Dates")
     ax.set_ylabel("Number of Cases")
 
