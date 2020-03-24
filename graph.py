@@ -48,18 +48,19 @@ createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
 # print(getCasesByCountry(timeseries)["Norway"])
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
-COUNTRIES_IN_TABLE = 10
-# Updates the Most Infected table
-  # <tr>
-  #   <td>5</td>
-  #   <td>Germany</td>
-  #   <td>29056</td>
-  # </tr>
 
+COUNTRIES_IN_TABLE = 5
 table = ""
-mostInfected = (getTopCountriesInfected(timeseries, COUNTRIES_IN_TABLE))
+dropdown = ""
+# Updates the Most Infected table
+mostInfected = getTopCountriesInfected(timeseries, COUNTRIES_IN_TABLE)
 count = 0
+                # <a class="dropdown-item" href="countries/">Action</a>
+                # <a class="dropdown-item" href="countries/">Another action</a>
 for country in mostInfected:
+    countryCases = getCasesForCountry(timeseries, country)
+    createScatter(countryCases.keys(), countryCases.values(), country, "countries/" + country.lower())
+    dropdown += "<a class=\"dropdown-item\" href=\"countries/" + country.lower() + ".png" + "\">" + country + "</a>"
     count += 1
     table += "<tr><td>" + str(count) + "</td>"
     table += "<td>" + country + "</td>"
@@ -68,6 +69,13 @@ for country in mostInfected:
 with open("index.html", "r") as html:
     index = str(html.read())
 with open("index.html", "w") as html:
-    start = index.find("<!-- TABLE_DATA_START_HERE -->") + len("<!-- TABLE_DATA_START_HERE -->")
-    end = index.find("<!-- TABLE_DATA_END_HERE -->")
-    html.write(index[0:start] + "\n" + table + "\n" + index[end:len(index)])
+    startTable = index.find("<!-- TABLE_DATA_START_HERE -->") + len("<!-- TABLE_DATA_START_HERE -->")
+    endTable = index.find("<!-- TABLE_DATA_END_HERE -->")
+    html.write(index[0:startTable] + "\n" + table + "\n" + index[endTable:len(index)])
+
+with open("index.html", "r") as html:
+    index = str(html.read())
+with open("index.html", "w") as html:
+    startDropdown = index.find("<!-- DROPDOWN_DATA_START_HERE -->") + len("<!-- DROPDOWN_DATA_START_HERE -->")
+    endDropdown = index.find("<!-- DROPDOWN_DATA_END_HERE -->")
+    html.write(index[0:startDropdown] + "\n" + dropdown + "\n" + index[endDropdown:len(index)])

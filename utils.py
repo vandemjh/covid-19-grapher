@@ -33,6 +33,9 @@ def getCasesByCountry(timeseries):
                 # toReturn[country[day["date"]]] += day["confirmed"]
     return toReturn
 
+def getCasesForCountry(timeseries, country):
+    return getCasesByCountry(timeseries)[country]
+
 # Returns countries as { country : number of cases }
 def getCountriesInfectedTotals(timeseries):
     toReturn = {}
