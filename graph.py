@@ -48,19 +48,26 @@ createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
 # print(getCasesByCountry(timeseries)["Norway"])
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
+COUNTRIES_IN_TABLE = 10
 # Updates the Most Infected table
-with open("temp/mostInfectedTable.html", "r") as html:
-    table = str(html.read())
-    mostInfected = (getTopCountriesInfected(timeseries, 5))
-    index = 1
-    for country in mostInfected:
-        table = table.replace("COUNTRY_" + str(index) + "_NAME", country)
-        table = table.replace("COUNTRY_" + str(index) + "_CASES", str(mostInfected[country]))
-        index += 1
+  # <tr>
+  #   <td>5</td>
+  #   <td>Germany</td>
+  #   <td>29056</td>
+  # </tr>
+
+table = ""
+mostInfected = (getTopCountriesInfected(timeseries, COUNTRIES_IN_TABLE))
+count = 0
+for country in mostInfected:
+    count += 1
+    table += "<tr><td>" + str(count) + "</td>"
+    table += "<td>" + country + "</td>"
+    table += "<td>" + str(mostInfected[country]) + "</td></tr>"
 
 with open("index.html", "r") as html:
     index = str(html.read())
 with open("index.html", "w") as html:
-    start = index.find("<!-- TABLE_START_HERE -->") + len("<!-- TABLE_START_HERE -->")
-    end = index.find("<!-- TABLE_END_HERE -->")
+    start = index.find("<!-- TABLE_DATA_START_HERE -->") + len("<!-- TABLE_DATA_START_HERE -->")
+    end = index.find("<!-- TABLE_DATA_END_HERE -->")
     html.write(index[0:start] + "\n" + table + "\n" + index[end:len(index)])
