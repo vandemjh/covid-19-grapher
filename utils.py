@@ -50,8 +50,11 @@ def getCountriesInfectedTotals(timeseries):
                 day = dateTime.day - 1
                 month = dateTime.month
                 year = dateTime.year
-                toGet = str(year if day > 0 and month > 0 else year - 1) + "-" + str(month if day > 0 else month - 1) + "-" + str(day if day > 0 else 1)
-                toReturn.update({country : toIterate[country][toGet]})
+                try:
+                    toGet = str(year if day > 0 and month > 0 else year - 1) + "-" + str(month if day > 0 else month - 1) + "-" + str(day if day > 0 else 1)
+                    toReturn.update({country : toIterate[country][toGet]})
+                except: # Default to yesterdays data
+                    toReturn.update({country : toIterate[country][toGet]})
     # for country in toIterate:
     #     for day in toIterate[country]:
     #         if (not country in toReturn):
