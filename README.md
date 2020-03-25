@@ -9,6 +9,9 @@ Using past trends, this COVID-19 grapher predicts how many fatalities are expect
 * Calcualte rate of growth at that certain time
 * Allow user to input time, have valid ranges (before 1-22, or before first reported case, after current date, which is date of graph), just correspond to y axis (number of cases), if in the future, input x into rate of growth based on time calculated by time from now
 * Add style sheet to make custom bootstrap
+# More Suggestions (3/25)
+* Use a script to change order of country by which one has more death
+* Change the output of pygraph that says from from 6:7, say 6-7PM EST, also put weekday and enumate country as well so people from other countries don't get confused
 ## Requirements
 * As a public health official, I want to be able to estimate how many new cases/fatalities of COVID-19 I should expected that way I can better prepare to treat an influx of patients.
 * As a government official, I want to guage the potential loss due to COVID-19 so I can develop policies accordingly.
