@@ -3,10 +3,10 @@
 name: Python application
 
 on:
-  # [push, pull_request]
+  [push, pull_request]
   # - cron: "0 */12 * * *" # Every 12 hours
-  schedule:
-    - cron: "0 */6 * * *" # Every 6 hours
+  # schedule:
+  # - cron: "0 */6 * * *" # Every 6 hours
 
 jobs:
   pull_commit:

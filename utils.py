@@ -66,7 +66,14 @@ def getCountriesInfectedTotals(timeseries):
                         + str(day if day > 0 else 1)
                     )
                     toReturn.update({country: toIterate[country][toGet]})
-                except:  # Default to yesterdays data
+                except:  # Default to yesterdays data (time zone issues on server)
+                    toGet = (
+                        str(dateTime.year)
+                        + "-"
+                        + str(dateTime.month)
+                        + "-"
+                        + str(dateTime.day)
+                    )
                     toReturn.update({country: toIterate[country][toGet]})
     # for country in toIterate:
     #     for day in toIterate[country]:
