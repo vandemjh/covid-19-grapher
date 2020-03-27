@@ -1,9 +1,9 @@
-name: Python application
+name: Format Python
 
 on:
-  # [push]
-  schedule:
-    - cron: "0 0 * * 0"
+  [push]
+  # schedule:
+  # - cron: "0 0 * * 0"
   #   - cron: "0 */12 * * *" # Every 12 hours
   #   - cron: "0 */6 * * *" # Every 6 hours
 jobs:
