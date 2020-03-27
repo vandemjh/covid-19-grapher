@@ -3,6 +3,9 @@ https://vandemjh.github.io/covid-19-grapher/
 
 Using past trends, this COVID-19 grapher predicts how many fatalities are expected on a day, for a certain time, and total fatality count.
 
+## Action Status
+![Python application](https://github.com/vandemjh/covid-19-grapher/workflows/Python%20application/badge.svg?branch=master)
+![Formatted](https://github.com/vandemjh/covid-19-grapher/workflows/.github/workflows/format.yml/badge.svg)
 
 ## To Do
 * Put estimated fatalities not just cases over time
@@ -24,5 +27,3 @@ Using past trends, this COVID-19 grapher predicts how many fatalities are expect
 * Lack of Testing
 * Need to update from data continously
 
-## Action Status
-![Python application](https://github.com/vandemjh/covid-19-grapher/workflows/Python%20application/badge.svg?branch=master)
