@@ -28,6 +28,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Install black
+        run: |
+          pip3 install black
+      - name: Format python3
+        run: |
+          black *.py
       - name: Run graph.py
         run: python3 graph.py
       - name: Commit files
