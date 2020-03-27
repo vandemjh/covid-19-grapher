@@ -5,7 +5,7 @@ Using past trends, this COVID-19 grapher predicts how many fatalities are expect
 
 ## Action Status
 ![Python application](https://github.com/vandemjh/covid-19-grapher/workflows/Python%20application/badge.svg?branch=master)
-![Formatted](https://github.com/vandemjh/covid-19-grapher/workflows/.github/workflows/format.yml/badge.svg)
+![Format Python](https://github.com/vandemjh/covid-19-grapher/workflows/Format%20Python/badge.svg)
 
 ## To Do
 * Put estimated fatalities not just cases over time
