@@ -1,13 +1,10 @@
-# This workflow will install Python dependencies, run graph, commit and push.
-
 name: Python application
 
 on:
-  # [push, pull_request]
+  [push]
   # - cron: "0 */12 * * *" # Every 12 hours
-  schedule:
-    - cron: "0 */6 * * *" # Every 6 hours
-
+  # schedule:
+  #   - cron: "0 */6 * * *" # Every 6 hours
 jobs:
   pull_commit:
     runs-on: ubuntu-latest
@@ -17,25 +14,22 @@ jobs:
       - name: Hello world action step
         run: |
           echo Hello world!
-      - name: run ls
-        run: |
-          ls
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Install dependencies
+      - name: Install black
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Run graph.py
-        run: python3 graph.py
+          pip3 install black
+      - name: Format python3
+        run: |
+          black *.py
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "Update graph (action performed automatically by GitHub)"
+          git commit -m "Formatted with Black"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
