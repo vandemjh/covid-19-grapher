@@ -4,6 +4,7 @@ import os
 import math
 import requests
 import datetime
+from PIL import Image
 from utils import *
 
 """ CONSTANTS """
@@ -134,22 +135,29 @@ ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countr
 plt.savefig("top")
 plt.close(fig)
 
-# changeTotals = getChangeInInfected(timeseries, 1)
-# createChart(changeTotals["US"].keys(), changeTotals["US"].values(), "change", "change", type="plot")
-rateOfChangeOfCasesByCountry = getChangeInInfected(timeseries, 1)
-fig = plt.figure()
-ax = fig.add_axes(AXIS_SETTINGS)
-for country in rateOfChangeOfCasesByCountry:
-    if country in mostInfected:
-        dates = list(rateOfChangeOfCasesByCountry[country].keys())
-        cases = list(rateOfChangeOfCasesByCountry[country].values())
-        ax.plot(range(len(dates)), cases, label=country)
+# Function to loop through when creating gif
+def createRateOfChangeGraph(fileName, step):
+    rateOfChangeOfCasesByCountry = getChangeInInfected(timeseries, step)
+    fig = plt.figure()
+    ax = fig.add_axes(AXIS_SETTINGS)
+    for country in rateOfChangeOfCasesByCountry:
+        if country in mostInfected:
+            dates = list(rateOfChangeOfCasesByCountry[country].keys())
+            cases = list(rateOfChangeOfCasesByCountry[country].values())
+            ax.plot(range(len(dates)), cases, label=country)
 
-plt.legend(loc="upper left")
-ax.set_xlabel("Dates")
-ax.set_ylabel("Rate of change of cases")
-plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
-dateTime = datetime.datetime.today()
-ax.set_title("Rate of change of top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
-plt.savefig("change")
-plt.close(fig)
+    plt.legend(loc="upper left")
+    ax.set_xlabel("Dates")
+    ax.set_ylabel("Rate of change of cases")
+    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+    dateTime = datetime.datetime.today()
+    ax.set_title("Rate of change of top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
+    plt.savefig(fileName + str(step))
+    plt.close(fig)
+    return fileName + str(step) + ".png"
+
+toGifify = []
+for i in range(5):
+    toGifify.append(Image.open(createRateOfChangeGraph("change/change", i + 1)))
+
+toGifify[0].save("change.gif", save_all=True, append_images=toGifify, duration=200, loop=0)

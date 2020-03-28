@@ -90,6 +90,8 @@ def getTopCountriesInfected(timeseries, maxCountries):
 
 # Returns the rate of change (average of dayAverage days) of all countries over all dates as { country : { "date" : average rate of change from dayAverage days ago } }
 def getChangeInInfected(timeseries, dayAverage):
+    if (dayAverage == 0):
+        return getCasesByCountry(timeseries)
     toReturn = {}
     timeseries = getCasesByCountry(timeseries)
     for country in timeseries:
