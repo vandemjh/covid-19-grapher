@@ -136,21 +136,20 @@ plt.close(fig)
 
 # changeTotals = getChangeInInfected(timeseries, 1)
 # createChart(changeTotals["US"].keys(), changeTotals["US"].values(), "change", "change", type="plot")
-casesByCountry = getCasesByCountry(timeseries)
+rateOfChangeOfCasesByCountry = getChangeInInfected(timeseries, 1)
 fig = plt.figure()
 ax = fig.add_axes(AXIS_SETTINGS)
-
-for country in casesByCountry:
+for country in rateOfChangeOfCasesByCountry:
     if country in mostInfected:
-        dates = list(casesByCountry[country].keys())
-        cases = list(casesByCountry[country].values())
+        dates = list(rateOfChangeOfCasesByCountry[country].keys())
+        cases = list(rateOfChangeOfCasesByCountry[country].values())
         ax.plot(range(len(dates)), cases, label=country)
 
 plt.legend(loc="upper left")
 ax.set_xlabel("Dates")
-ax.set_ylabel("Number of Cases")
+ax.set_ylabel("Rate of change of cases")
 plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
 dateTime = datetime.datetime.today()
-ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
-plt.savefig("top")
+ax.set_title("Rate of change of top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
+plt.savefig("change")
 plt.close(fig)
