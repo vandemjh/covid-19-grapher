@@ -48,9 +48,8 @@ def createScatter(dates, cases, country, fileName):
         + "-"
         + str(dateTime.day)
         + " @ "
-        + str(dateTime.hour)
-        # + ":"
-        # + (str(dateTime.minute))
+        + str(dateTime.hour) + " O'clock"
+
     )
     # plt.show()
     plt.savefig(fileName)
