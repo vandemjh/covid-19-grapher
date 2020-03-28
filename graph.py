@@ -17,9 +17,6 @@ timeseries = json.loads(
     requests.get("https://pomber.github.io/covid19/timeseries.json").content
 )
 
-caseTotals = getTotalCasesByDay(timeseries)
-
-
 try:
     import matplotlib.pyplot as plt
 except:
@@ -30,7 +27,6 @@ except:
 
 
 def createScatter(dates, cases, country, fileName):
-
     fig = plt.figure()
     ax = fig.add_axes(AXIS_SETTINGS)
     ax.scatter(list(range(len(dates))), list(cases))
@@ -53,11 +49,12 @@ def createScatter(dates, cases, country, fileName):
         + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 12) + (" AM" if dateTime.hour < 12 else " PM")
 
     )
-    # plt.show()
     plt.savefig(fileName)
     plt.close(fig)
 
-
+# print(getChangeInInfected(timeseries, 1)["Norway"])
+# print(getCasesForCountry(timeseries, "Norway"))
+caseTotals = getTotalCasesByDay(timeseries)
 createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
@@ -66,8 +63,6 @@ dropdown = ""
 # Updates the Most Infected table
 mostInfected = getTopCountriesInfected(timeseries, NUM_COUNTRIES_TO_DISPLAY)
 count = 0
-# <a class="dropdown-item" href="countries/">Action</a>
-# <a class="dropdown-item" href="countries/">Another action</a>
 for country in mostInfected:
     countryCases = getCasesForCountry(timeseries, country)
     createScatter(

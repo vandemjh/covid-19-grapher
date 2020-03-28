@@ -1,6 +1,6 @@
 import datetime
 
-
+# Used to declutter x axis of the matplotlib plots
 def skipOver(dates, skipSize):
     toReturn = []
     for date in list(dates):
@@ -36,7 +36,7 @@ def getCasesByCountry(timeseries):
             # toReturn[country[day["date"]]] += day["confirmed"]
     return toReturn
 
-
+# Returns cases for country as { "date" : cases on that date }
 def getCasesForCountry(timeseries, country):
     return getCasesByCountry(timeseries)[country]
 
@@ -60,17 +60,22 @@ def getCountriesInfectedTotals(timeseries):
                 try:
                     toReturn.update({country: toIterate[country][toGet]})
                 except:  # Default to yesterdays data (time zone issues on server)
-                    yesterday = dateTime - datetime.timedelta(days = 1)
-                    toGet = (
-                        str(yesterday.year)
-                        + "-"
-                        + str(yesterday.month)
-                        + "-"
-                        + str(yesterday.day)
-                    )
+                    toGet = getDateInStringForm(toGet, -1)
                     toReturn.update({country: toIterate[country][toGet]})
     return toReturn
 
+# Return days formatted for json (negative days are in the past)
+def getDateInStringForm(startDate, daysToChange):
+    sentDate = startDate.split("-")
+    toCalculate = datetime.datetime(int(sentDate[0]), int(sentDate[1]), int(sentDate[2]))
+    changed = toCalculate + datetime.timedelta(days = daysToChange)
+    return (
+        str(changed.year)
+        + "-"
+        + str(changed.month)
+        + "-"
+        + str(changed.day)
+    )
 
 # Returns top maxCountries most infected countries as { country : number of cases }
 def getTopCountriesInfected(timeseries, maxCountries):
@@ -81,4 +86,23 @@ def getTopCountriesInfected(timeseries, maxCountries):
         numInfected = toPop[nextTop]
         toReturn.update({nextTop: numInfected})
         toPop.pop(nextTop)
+    return toReturn
+
+# Returns the rate of change (average of dayAverage days) of all countries over all dates as { country : { "date" : average rate of change from dayAverage days ago } }
+def getChangeInInfected(timeseries, dayAverage):
+    toReturn = {}
+    timeseries = getCasesByCountry(timeseries)
+    for country in timeseries:
+        for day in timeseries[country]:
+            # for i in range(dayAverage):
+            end = timeseries[country][day]
+            try:
+                start = timeseries[country][getDateInStringForm(day,-1 * dayAverage)]
+            except: # Day is too far in the past
+                start = 0
+            if not country in toReturn:
+                toReturn.update({country: {day: end - start}})
+            else:
+                toReturn[country].update({day: end - start})
+
     return toReturn
