@@ -48,39 +48,27 @@ def getCountriesInfectedTotals(timeseries):
     dateTime = datetime.datetime.today()
     for country in toIterate:
         if not country in toReturn:
+            day = dateTime.day
+            month = dateTime.month
+            year = dateTime.year
             toGet = (
-                str(dateTime.year) + "-" + str(dateTime.month) + "-" + str(dateTime.day)
+                str(year) + "-" + str(month) + "-" + str(day)
             )
             if toGet in toIterate[country]:
                 toReturn.update({country: toIterate[country][toGet]})
             else:
-                day = dateTime.day - 1
-                month = dateTime.month
-                year = dateTime.year
                 try:
-                    toGet = (
-                        str(year if day > 0 and month > 0 else year - 1)
-                        + "-"
-                        + str(month if day > 0 else month - 1)
-                        + "-"
-                        + str(day if day > 0 else 1)
-                    )
                     toReturn.update({country: toIterate[country][toGet]})
                 except:  # Default to yesterdays data (time zone issues on server)
+                    yesterday = dateTime - datetime.timedelta(days = 1)
                     toGet = (
-                        str(dateTime.year)
+                        str(yesterday.year)
                         + "-"
-                        + str(dateTime.month)
+                        + str(yesterday.month)
                         + "-"
-                        + str(dateTime.day)
+                        + str(yesterday.day)
                     )
                     toReturn.update({country: toIterate[country][toGet]})
-    # for country in toIterate:
-    #     for day in toIterate[country]:
-    #         if (not country in toReturn):
-    #             toReturn.update({country : toIterate[country][day]})
-    #         else:
-    #             toReturn[country] += toIterate[country][day]
     return toReturn
 
 
