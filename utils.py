@@ -103,8 +103,8 @@ def getChangeInInfected(timeseries, dayAverage):
             except: # Day is too far in the past
                 start = 0
             if not country in toReturn:
-                toReturn.update({country: {day: end - start}})
+                toReturn.update({country: {day: (end - start) / dayAverage}})
             else:
-                toReturn[country].update({day: end - start})
+                toReturn[country].update({day: (end - start) / dayAverage})
 
     return toReturn
