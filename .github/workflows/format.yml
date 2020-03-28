@@ -24,7 +24,7 @@ jobs:
           pip3 install black
       - name: Format python3
         run: |
-          black *.py
+          black -l 80 *.py
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"

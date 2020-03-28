@@ -6,15 +6,17 @@ import requests
 import datetime
 from utils import *
 
-# Setting for matplotlib charts
+""" CONSTANTS """
+# Axis settings for matplotlib images
 AXIS_SETTINGS = [0.167, 0.167, 0.7, 0.7]
+# Countries to display in table on main page
+NUM_COUNTRIES_TO_DISPLAY = 5
 
 # timeseries = json.loads(open("timeseries.json","r").read())
 timeseries = json.loads(
     requests.get("https://pomber.github.io/covid19/timeseries.json").content
 )
 
-numberOfCountries = 5
 caseTotals = getTotalCasesByDay(timeseries)
 
 
@@ -48,7 +50,7 @@ def createScatter(dates, cases, country, fileName):
         + "-"
         + str(dateTime.day)
         + " @ "
-        + str(dateTime.hour) + " O'clock"
+        + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 12) + (" AM" if dateTime.hour < 12 else " PM")
 
     )
     # plt.show()
@@ -59,12 +61,10 @@ def createScatter(dates, cases, country, fileName):
 createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
-
-COUNTRIES_IN_TABLE = 5
 table = ""
 dropdown = ""
 # Updates the Most Infected table
-mostInfected = getTopCountriesInfected(timeseries, COUNTRIES_IN_TABLE)
+mostInfected = getTopCountriesInfected(timeseries, NUM_COUNTRIES_TO_DISPLAY)
 count = 0
 # <a class="dropdown-item" href="countries/">Action</a>
 # <a class="dropdown-item" href="countries/">Another action</a>
@@ -129,6 +129,6 @@ ax.set_xlabel("Dates")
 ax.set_ylabel("Number of Cases")
 plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
 dateTime = datetime.datetime.today()
-ax.set_title("Cases in top " + str(COUNTRIES_IN_TABLE) + " Infected Countries")
+ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
 plt.savefig("top")
 plt.close(fig)
