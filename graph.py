@@ -157,7 +157,7 @@ def createRateOfChangeGraph(fileName, step):
     return fileName + str(step) + ".png"
 
 toGifify = []
-for i in range(5):
+for i in range(6):
     toGifify.append(Image.open(createRateOfChangeGraph("change/change", i + 1)))
 
-toGifify[0].save("change.gif", save_all=True, append_images=toGifify, duration=500, loop=0)
+toGifify[0].save("change.gif", save_all=True, append_images=toGifify, duration=600, loop=0)

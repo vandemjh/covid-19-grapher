@@ -22,7 +22,7 @@
 
   <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">COVID 19 Grapher/Predictor</a>
         <button
@@ -59,9 +59,21 @@
               <!-- Do not edit the dropdown comments they are used to populate the dropdown -->
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <!-- DROPDOWN_DATA_START_HERE -->
-<a class="dropdown-item" href="countries/us.png">US</a><a class="dropdown-item" href="countries/italy.png">Italy</a><a class="dropdown-item" href="countries/china.png">China</a><a class="dropdown-item" href="countries/spain.png">Spain</a><a class="dropdown-item" href="countries/germany.png">Germany</a>
-<!-- DROPDOWN_DATA_END_HERE -->
+                <a class="dropdown-item" href="countries/us.png">US</a
+                ><a class="dropdown-item" href="countries/italy.png">Italy</a
+                ><a class="dropdown-item" href="countries/china.png">China</a
+                ><a class="dropdown-item" href="countries/spain.png">Spain</a
+                ><a class="dropdown-item" href="countries/germany.png"
+                  >Germany</a
+                >
+                <!-- DROPDOWN_DATA_END_HERE -->
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#by-country">Infection by Country</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#rate">Rate of change</a>
             </li>
             <li class="nav-item">
               <a
@@ -79,12 +91,15 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div style="margin-top: 30px" class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
           <img src="covid.png" class="img-responsive img-fluid" />
+          <div>
+            <a name="by-country"></a>
+            <h3>Infection by Country</h3>
+          </div>
           <img src="top.png" class="img-responsive img-fluid" />
-          <img src="change.gif" class="img-responsive img-fluid" />
           <div>
             <!-- Do not change table start and end comments, they are used to update it -->
             <table class="table">
@@ -94,10 +109,40 @@
                 <th>Total Cases</th>
               </tr>
               <!-- TABLE_DATA_START_HERE -->
-<tr><td>1</td><td>US</td><td>101657</td></tr><tr><td>2</td><td>Italy</td><td>86498</td></tr><tr><td>3</td><td>China</td><td>81897</td></tr><tr><td>4</td><td>Spain</td><td>65719</td></tr><tr><td>5</td><td>Germany</td><td>50871</td></tr>
-<!-- TABLE_DATA_END_HERE -->
+              <tr>
+                <td>1</td>
+                <td>US</td>
+                <td>101657</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Italy</td>
+                <td>86498</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>China</td>
+                <td>81897</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Spain</td>
+                <td>65719</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Germany</td>
+                <td>50871</td>
+              </tr>
+              <!-- TABLE_DATA_END_HERE -->
             </table>
           </div>
+          <div>
+            <a name="rate"></a>
+            <h3>Rate of Change</h3>
+          </div>
+          <img src="change/change1.png" class="img-responsive img-fluid" />
+          <img src="change.gif" class="img-responsive img-fluid" />
         </div>
       </div>
     </div>
