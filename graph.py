@@ -61,9 +61,7 @@ def createChart(dates, cases, country, fileName, xAxis="Dates", yAxis="Number of
 # print(getCasesForCountry(timeseries, "Norway"))
 # exit()
 caseTotals = getTotalCasesByDay(timeseries)
-changeTotals = getChangeInInfected(timeseries, 1)
 createChart(caseTotals.keys(), caseTotals.values(), "total", "covid")
-createChart(changeTotals["US"].keys(), changeTotals["US"].values(), "change", "change", type="plot")
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
 table = ""
@@ -117,6 +115,27 @@ with open("index.html", "w") as html:
     )
 
 
+casesByCountry = getCasesByCountry(timeseries)
+fig = plt.figure()
+ax = fig.add_axes(AXIS_SETTINGS)
+
+for country in casesByCountry:
+    if country in mostInfected:
+        dates = list(casesByCountry[country].keys())
+        cases = list(casesByCountry[country].values())
+        ax.plot(range(len(dates)), cases, label=country)
+
+plt.legend(loc="upper left")
+ax.set_xlabel("Dates")
+ax.set_ylabel("Number of Cases")
+plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+dateTime = datetime.datetime.today()
+ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
+plt.savefig("top")
+plt.close(fig)
+
+# changeTotals = getChangeInInfected(timeseries, 1)
+# createChart(changeTotals["US"].keys(), changeTotals["US"].values(), "change", "change", type="plot")
 casesByCountry = getCasesByCountry(timeseries)
 fig = plt.figure()
 ax = fig.add_axes(AXIS_SETTINGS)
