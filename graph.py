@@ -26,12 +26,17 @@ except:
     quit()
 
 
-def createScatter(dates, cases, country, fileName):
+def createChart(dates, cases, country, fileName, xAxis="Dates", yAxis="Number of Cases", type="scatter"):
     fig = plt.figure()
     ax = fig.add_axes(AXIS_SETTINGS)
-    ax.scatter(list(range(len(dates))), list(cases))
-    ax.set_xlabel("Dates")
-    ax.set_ylabel("Number of Cases")
+    if (type == "scatter"):
+        ax.scatter(list(range(len(dates))), list(cases))
+    if (type == "loglog"):
+        ax.loglog(list(range(len(dates))), list(cases))
+    if (type == "plot"):
+        ax.plot(list(range(len(dates))), list(cases))
+    ax.set_xlabel(xAxis)
+    ax.set_ylabel(yAxis)
 
     plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
     # ax.xaxis.set_major_locator(ticker.MultipleLocator(10))
@@ -52,10 +57,13 @@ def createScatter(dates, cases, country, fileName):
     plt.savefig(fileName)
     plt.close(fig)
 
-# print(getChangeInInfected(timeseries, 1)["Norway"])
+# print(getChangeInInfected(timeseries, 20)["Norway"])
 # print(getCasesForCountry(timeseries, "Norway"))
+# exit()
 caseTotals = getTotalCasesByDay(timeseries)
-createScatter(caseTotals.keys(), caseTotals.values(), "total", "covid")
+changeTotals = getChangeInInfected(timeseries, 1)
+createChart(caseTotals.keys(), caseTotals.values(), "total", "covid")
+createChart(changeTotals["US"].keys(), changeTotals["US"].values(), "change", "change", type="plot")
 # print(getCountriesInfectedTotals(timeseries)["Norway"])
 
 table = ""
@@ -65,7 +73,7 @@ mostInfected = getTopCountriesInfected(timeseries, NUM_COUNTRIES_TO_DISPLAY)
 count = 0
 for country in mostInfected:
     countryCases = getCasesForCountry(timeseries, country)
-    createScatter(
+    createChart(
         countryCases.keys(),
         countryCases.values(),
         country,
