@@ -27,19 +27,29 @@ except:
     quit()
 
 
-def createChart(dates, cases, country, fileName, xAxis="Dates", yAxis="Number of Cases", type="scatter"):
+def createChart(
+    dates,
+    cases,
+    country,
+    fileName,
+    xAxis="Dates",
+    yAxis="Number of Cases",
+    type="scatter",
+):
     fig = plt.figure()
     ax = fig.add_axes(AXIS_SETTINGS)
-    if (type == "scatter"):
+    if type == "scatter":
         ax.scatter(list(range(len(dates))), list(cases))
-    if (type == "loglog"):
+    if type == "loglog":
         ax.loglog(list(range(len(dates))), list(cases))
-    if (type == "plot"):
+    if type == "plot":
         ax.plot(list(range(len(dates))), list(cases))
     ax.set_xlabel(xAxis)
     ax.set_ylabel(yAxis)
 
-    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+    plt.xticks(
+        range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
+    )
     # ax.xaxis.set_major_locator(ticker.MultipleLocator(10))
 
     # plt.suptitle('Number of occurances by code fragement (10% of values)', fontsize = 12)
@@ -52,11 +62,12 @@ def createChart(dates, cases, country, fileName, xAxis="Dates", yAxis="Number of
         + "-"
         + str(dateTime.day)
         + " @ "
-        + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 12) + (" AM" if dateTime.hour < 12 else " PM")
-
+        + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 12)
+        + (" AM" if dateTime.hour < 12 else " PM")
     )
     plt.savefig(fileName)
     plt.close(fig)
+
 
 # print(getChangeInInfected(timeseries, 20)["Norway"])
 # print(getCasesForCountry(timeseries, "Norway"))
@@ -98,7 +109,9 @@ with open("index.html", "w") as html:
         "<!-- TABLE_DATA_START_HERE -->"
     )
     endTable = index.find("<!-- TABLE_DATA_END_HERE -->")
-    html.write(index[0:startTable] + "\n" + table + "\n" + index[endTable : len(index)])
+    html.write(
+        index[0:startTable] + "\n" + table + "\n" + index[endTable : len(index)]
+    )
 
 with open("index.html", "r") as html:
     index = str(html.read())
@@ -129,9 +142,13 @@ for country in casesByCountry:
 plt.legend(loc="upper left")
 ax.set_xlabel("Dates")
 ax.set_ylabel("Number of Cases")
-plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+plt.xticks(
+    range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
+)
 dateTime = datetime.datetime.today()
-ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
+ax.set_title(
+    "Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries"
+)
 plt.savefig("top")
 plt.close(fig)
 
@@ -149,15 +166,26 @@ def createRateOfChangeGraph(fileName, step):
     plt.legend(loc="upper left")
     ax.set_xlabel("Dates")
     ax.set_ylabel("Rate of change of cases")
-    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+    plt.xticks(
+        range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
+    )
     dateTime = datetime.datetime.today()
-    ax.set_title("Rate of change of top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries (average of " + str(step) + " days)")
+    ax.set_title(
+        "Rate of change of top "
+        + str(NUM_COUNTRIES_TO_DISPLAY)
+        + " Infected Countries (average of "
+        + str(step)
+        + " days)"
+    )
     plt.savefig(fileName + str(step))
     plt.close(fig)
     return fileName + str(step) + ".png"
+
 
 toGifify = []
 for i in range(6):
     toGifify.append(Image.open(createRateOfChangeGraph("change/change", i + 1)))
 
-toGifify[0].save("change.gif", save_all=True, append_images=toGifify, duration=600, loop=0)
+toGifify[0].save(
+    "change.gif", save_all=True, append_images=toGifify, duration=600, loop=0
+)

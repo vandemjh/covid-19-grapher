@@ -36,6 +36,7 @@ def getCasesByCountry(timeseries):
             # toReturn[country[day["date"]]] += day["confirmed"]
     return toReturn
 
+
 # Returns cases for country as { "date" : cases on that date }
 def getCasesForCountry(timeseries, country):
     return getCasesByCountry(timeseries)[country]
@@ -51,9 +52,7 @@ def getCountriesInfectedTotals(timeseries):
             day = dateTime.day
             month = dateTime.month
             year = dateTime.year
-            toGet = (
-                str(year) + "-" + str(month) + "-" + str(day)
-            )
+            toGet = str(year) + "-" + str(month) + "-" + str(day)
             if toGet in toIterate[country]:
                 toReturn.update({country: toIterate[country][toGet]})
             else:
@@ -64,18 +63,16 @@ def getCountriesInfectedTotals(timeseries):
                     toReturn.update({country: toIterate[country][toGet]})
     return toReturn
 
+
 # Return days formatted for json (negative days are in the past)
 def getDateInStringForm(startDate, daysToChange):
     sentDate = startDate.split("-")
-    toCalculate = datetime.datetime(int(sentDate[0]), int(sentDate[1]), int(sentDate[2]))
-    changed = toCalculate + datetime.timedelta(days = daysToChange)
-    return (
-        str(changed.year)
-        + "-"
-        + str(changed.month)
-        + "-"
-        + str(changed.day)
+    toCalculate = datetime.datetime(
+        int(sentDate[0]), int(sentDate[1]), int(sentDate[2])
     )
+    changed = toCalculate + datetime.timedelta(days=daysToChange)
+    return str(changed.year) + "-" + str(changed.month) + "-" + str(changed.day)
+
 
 # Returns top maxCountries most infected countries as { country : number of cases }
 def getTopCountriesInfected(timeseries, maxCountries):
@@ -88,9 +85,10 @@ def getTopCountriesInfected(timeseries, maxCountries):
         toPop.pop(nextTop)
     return toReturn
 
+
 # Returns the rate of change (average of dayAverage days) of all countries over all dates as { country : { "date" : average rate of change from dayAverage days ago } }
 def getChangeInInfected(timeseries, dayAverage):
-    if (dayAverage == 0):
+    if dayAverage == 0:
         return getCasesByCountry(timeseries)
     toReturn = {}
     timeseries = getCasesByCountry(timeseries)
@@ -99,8 +97,10 @@ def getChangeInInfected(timeseries, dayAverage):
             # for i in range(dayAverage):
             end = timeseries[country][day]
             try:
-                start = timeseries[country][getDateInStringForm(day,-1 * dayAverage)]
-            except: # Day is too far in the past
+                start = timeseries[country][
+                    getDateInStringForm(day, -1 * dayAverage)
+                ]
+            except:  # Day is too far in the past
                 start = 0
             if not country in toReturn:
                 toReturn.update({country: {day: (end - start) / dayAverage}})
