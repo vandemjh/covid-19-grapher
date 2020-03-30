@@ -62,8 +62,8 @@ def createChart(
         + "-"
         + str(dateTime.day)
         + " @ "
-        + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 12)
-        + (" AM" if dateTime.hour < 12 else " PM")
+        + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 11)
+        + (" AM" if dateTime.hour < 12 else " PM") + " GMT"
     )
     plt.savefig(fileName)
     plt.close(fig)
