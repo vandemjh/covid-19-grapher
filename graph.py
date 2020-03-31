@@ -4,8 +4,10 @@ import os
 import math
 import requests
 import datetime
+import numpy
 from PIL import Image
 from utils import *
+from predict import *
 
 """ CONSTANTS """
 # Axis settings for matplotlib images
@@ -13,7 +15,6 @@ AXIS_SETTINGS = [0.167, 0.167, 0.7, 0.7]
 # Countries to display in table on main page
 NUM_COUNTRIES_TO_DISPLAY = 5
 
-# timeseries = json.loads(open("timeseries.json","r").read())
 timeseries = json.loads(
     requests.get("https://pomber.github.io/covid19/timeseries.json").content
 )
@@ -40,6 +41,11 @@ def createChart(
     ax = fig.add_axes(AXIS_SETTINGS)
     if type == "scatter":
         ax.scatter(list(range(len(dates))), list(cases))
+        trend = multipleRegress(list(range(len(dates))), list(cases))
+        trendpoly = numpy.poly1d(trend)
+        plt.plot(list(range(len(dates))),trendpoly(list(range(len(dates)))), "red")
+        # print(numpy.polyval(trendpoly, 9))
+        # plt.title("")
     if type == "loglog":
         ax.loglog(list(range(len(dates))), list(cases))
     if type == "plot":
@@ -50,9 +56,6 @@ def createChart(
     plt.xticks(
         range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
     )
-    # ax.xaxis.set_major_locator(ticker.MultipleLocator(10))
-
-    # plt.suptitle('Number of occurances by code fragement (10% of values)', fontsize = 12)
     dateTime = datetime.datetime.today()
     ax.set_title(
         "Number of cases in "
@@ -71,10 +74,16 @@ def createChart(
 
 # print(getChangeInInfected(timeseries, 20)["Norway"])
 # print(getCasesForCountry(timeseries, "Norway"))
-# exit()
+
+
 caseTotals = getTotalCasesByDay(timeseries)
+
+""" Linear Regression """
+# case getCasesByCountry(timeseries) For multiple countries... TODO vandemjh
+# multipleRegress(list(range(len(caseTotals.keys()))), list(caseTotals.values()));
+
 createChart(caseTotals.keys(), caseTotals.values(), "total", "covid")
-# print(getCountriesInfectedTotals(timeseries)["Norway"])
+# quit()
 
 table = ""
 dropdown = ""
