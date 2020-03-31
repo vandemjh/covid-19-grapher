@@ -43,7 +43,7 @@ def createChart(
         ax.scatter(list(range(len(dates))), list(cases))
         trend = multipleRegress(list(range(len(dates))), list(cases))
         trendpoly = numpy.poly1d(trend)
-        plt.plot(list(range(len(dates))),trendpoly(list(range(len(dates)))), "red")
+        plt.plot(list(range(len(dates))),trendpoly(list(range(len(dates)))), "red", label="Trend")
         # print(numpy.polyval(trendpoly, 9))
         # plt.title("")
     if type == "loglog":
