@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <title>Covid-19 Grapher</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">COVID 19 Grapher/Predictor</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"
+                >Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Countries
+              </a>
+              <!-- Do not edit the dropdown comments they are used to populate the dropdown -->
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <!-- DROPDOWN_DATA_START_HERE -->
+<a class="dropdown-item" href="countries/us.png">US</a><a class="dropdown-item" href="countries/italy.png">Italy</a><a class="dropdown-item" href="countries/spain.png">Spain</a><a class="dropdown-item" href="countries/china.png">China</a><a class="dropdown-item" href="countries/germany.png">Germany</a>
+<!-- DROPDOWN_DATA_END_HERE -->
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#by-country">Infection by Country</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#rate">Rate of change</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://codingshot.github.io/quarantime/"
+                >Quarantime</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">COVID-19 Notifier</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div style="margin-top: 40px" class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <img src="covid.png" class="img-responsive img-fluid" />
+          <p>Current prediction of infected</p>
+          <input id="slider" type="range" min="1" max="300" value="0" />
+          <p id="infected">Use the slider to predict infections</p>
+
+          <script type="text/javascript">
+            var slider = document.getElementById("slider");
+            var output = document.getElementById("infected");
+            output.innerHTML = slider.value;
+
+            // <!-- PREDICTION_DATA_START_HERE -->
+ const predictions = [1458.7916369004158, 839.7007987508628, 665.0049931792205, 926.729383909981, 1612.6890194623813, 2706.839396712063, 4189.627024452735, 6038.3399869578325, 8227.45850754218, 10729.005512123655, 13512.897192784842, 16547.29357133469, 19798.949062870197, 23233.563039338045, 26816.13039309627, 30511.292100475926, 34283.68578534274, 38098.2962826588, 41920.80620204413, 45717.9464913385, 49457.84700016295, 53110.3870434815, 56647.54596516282, 60043.75370154189, 63276.24134498166, 66325.39170743471, 69175.08988400485, 71813.07381650893, 74231.28485703836, 76426.2183315208, 78399.27410328189, 80157.1071366068, 81711.97806030202, 83082.10373125691, 84292.00779800546, 85372.8712642878, 86362.88305261204, 87307.59056781582, 88260.250260628, 89282.17819123036, 90443.1005928191, 91821.50443516672, 93504.98798818364, 95590.61138547971, 98185.24718792604, 101405.93094721642, 105380.21176942937, 110246.5028785893, 116154.43218022877, 123265.19282494979, 131751.8937719852, 141799.91035276107, 153607.23483445743, 167384.82698357126, 183356.96462947622, 201761.59422798664, 222850.68142491675, 246890.56161964493, 274162.29052867246, 304961.99474918813, 339601.2223226275, 378407.29329823627, 421723.65029663034, 469910.2090733596, 523343.70908246684, 582418.0640400521, 647544.7124878335, 719152.9683567062, 797690.3715303098, 883623.0384085833, 977436.0124713329, 1079633.6148417883, 1190739.7948501694, 1311298.480597243, 1441873.9295178894, 1583051.0789446589, 1735435.8966713387, 1899655.7315165098, 2076359.6638871129, 2266218.856342006, 2469926.9041555305, 2688200.1858810675, 2921778.213914604, 3171423.9850582946, 3437924.3310840176, 3722090.269296946, 4024757.3530990966, 4346786.022552905, 4689061.954944779, 5052496.41534866, 5438026.607189594, 5846616.022807277, 6279254.794019632, 6736960.042686358, 7220776.231272514, 7731775.513412047, 8271058.084471375, 8839752.532112958, 9439016.186858837, 10070035.472654196, 10734026.257430946, 11432234.20367128, 12165935.118971216, 12936435.306604177, 13745071.916084534, 14593213.293731201, 15482259.333231172, 16413641.826203065, 17388824.812760733, 18409304.93207679, 19476611.77294617, 20592308.224349715, 21757990.8260177, 22975290.118993443, 24245870.99619682, 25571433.052987847, 26953710.937730256, 28394474.70235503, 29895530.152923975, 31458719.200193264, 33085920.21017708, 34779048.35471105, 36540055.96201589, 38370932.86726095, 40273706.763127804, 42250443.55037373, 44303247.68839537, 46434262.545792185, 48645670.75093017, 50939694.542505234, 53318596.12010687, 55784677.994781755, 58340283.33959718, 60987796.340204716, 63729642.545403734, 66568289.21770501, 69506245.68389422, 72546063.68559556, 75690337.72983521, 78941705.43960509, 82302847.90442623, 85776490.0309124, 89365400.89333364, 93072394.08418, 96900328.06472477, 100852106.51558834, 104930678.68730168, 109139039.75086977, 113480231.14833532, 117957340.94334221, 122573504.17169932, 127331903.1919436, 132235768.03590417, 137288376.75926548, 142493055.79213104, 147853180.28958708, 153372174.48226586, 159053512.0269094, 164900716.3569331, 170917361.0329891, 177107070.09353006, 183473518.40537244, 190020432.01426047, 196751588.49542934, 203670817.3041688, 210782000.1263871, 218089071.22917408, 225596017.81136495, 233306880.35410383, 241225752.97140732, 249356783.7607281, 257704175.15351826, 266272184.2657932, 275065123.24869525, 284087359.6390565, 293343316.7099633, 302837473.8213193, 312574366.7704087, 322558588.1424611, 332794787.6612135, 343287672.5394747, 354042007.8296888, 365062616.7744984, 376354381.1573088, 387922241.65285105, 399771198.17774534, 411906310.2410656, 424332697.29490185, 437055539.08492404, 450080076.0009464, 463411609.4274899, 477055502.0943466, 491017178.4271428, 505302124.8979031, 519915890.3756133, 534864086.4767843, 550152387.9160155, 565786532.8565588, 581772323.2608819, 598115625.2412313, 614822369.4101968, 631898551.2312747, 649350231.3694311, 667183536.0416658, 685404657.3675754, 704019853.7199179, 723035450.0751746, 742457838.3641154, 762293477.822361, 782548895.3409474, 803230685.8168895, 824345512.5037433, 845900107.3621708, 867901271.4105037, 890355875.0753055, 913270858.5419368, 936653232.1051179, 960510076.5194923, 984848543.3501908, 1009675855.3233942, 1034999306.6768978, 1060826263.5106751, 1087164164.1374393, 1114020519.4332097, 1141402913.1878746, 1169319002.4557524, 1197776517.906158, 1226783264.1739652, 1256347120.2101703, 1286476039.6324558, 1317178051.075754, 1348461258.542811, 1380333841.754749, 1412804056.5016305, 1445880234.993023, 1479570786.2085602, 1513884196.2485075, 1548829028.6843257, 1584413924.9092329, 1620647604.488769, 1657538865.5113597, 1695096584.9388793, 1733329718.957215, 1772247303.3268292, 1811858453.733325, 1852172366.138007, 1893198317.1284487, 1934945664.2690525, 1977423846.4516141, 2020642384.2458887, 2064610880.2501497, 2109339019.441758, 2154836569.5277195, 2201113381.2952533, 2248179388.9623556, 2296044610.528359, 2344719148.1244974, 2394213188.364473, 2444537002.695017, 2495700947.746453, 2547715465.6832604, 2600591084.554641, 2654338418.645078, 2708968168.8249035, 2764491122.9008603, 2820918155.966665, 2878260230.75357, 2936528397.9809346, 2995733796.706778, 3055887654.6783504, 3117001288.682695, 3179086104.8972087, 3242153599.2402086, 3306215357.7214947, 3371283056.792914, 3437368463.698922, 3504483436.8271494, 3572639926.058964, 3641849973.1200323, 3712125711.930888, 3783479368.95749, 3855923263.561789, 3929469808.352293, 4004131509.5346236, 4079920967.262091, 4156850875.9862466, 4234934024.8074517, 4314183297.82544, 4394611674.489883, 4476232229.950951, 4559058135.409878, 4643102658.469525, 4728379163.484943, 4814901111.9139385, 4902682062.667635, 4991735672.461035, 5082075696.1635895, 5173715987.149756, 5266670497.649563, 5360953279.099177]; 
+// <!-- PREDICTION_DATA_STOP_HERE -->
+
+            slider.oninput = function() {
+              output.innerHTML =
+                Math.round(Number(predictions[this.value])).toLocaleString() +
+                " people infected on day " +
+                this.value;
+            };
+          </script>
+
+          <div class="mt-4">
+            <a name="by-country"></a>
+            <h3>Infection by Country</h3>
+          </div>
+          <img src="top.png" class="img-responsive img-fluid" />
+          <div>
+            <!-- Do not change table start and end comments, they are used to update it -->
+            <table class="table">
+              <tr>
+                <th></th>
+                <th>Country</th>
+                <th>Total Cases</th>
+              </tr>
+              <!-- TABLE_DATA_START_HERE -->
+<tr><td>1</td><td>US</td><td>161807</td></tr><tr><td>2</td><td>Italy</td><td>101739</td></tr><tr><td>3</td><td>Spain</td><td>87956</td></tr><tr><td>4</td><td>China</td><td>82198</td></tr><tr><td>5</td><td>Germany</td><td>66885</td></tr>
+<!-- TABLE_DATA_END_HERE -->
+            </table>
+          </div>
+          <div>
+            <a name="rate"></a>
+            <h3>Rate of Change</h3>
+          </div>
+          <img src="change/change1.png" class="img-responsive img-fluid" />
+          <img src="change.gif" class="img-responsive img-fluid" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Footer -->
+    <footer class="py-5 bg-black">
+      <script src="js/slider.js"></script>
+      <div class="container">
+        <p class="m-0 text-center text-white small">
+          by MPA (Jack V)
+        </p>
+      </div>
+      <!-- /.container -->
+    </footer>
+  </body>
+</html>
+<!-- Template used with permission from https://startbootstrap.com/templates/bare/ -->
