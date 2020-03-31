@@ -52,6 +52,7 @@ def createChart(
         ax.plot(list(range(len(dates))), list(cases))
     ax.set_xlabel(xAxis)
     ax.set_ylabel(yAxis)
+    ax.legend()
 
     plt.xticks(
         range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
