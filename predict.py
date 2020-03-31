@@ -18,3 +18,11 @@ def regress(xIn, yIn):
 # Returns polyfit
 def multipleRegress(xIn, yIn):
     return numpy.polyfit(xIn, yIn, 5)
+
+def predict(dates, cases, numPredictions=100):
+    trend = multipleRegress(list(range(len(dates))), list(cases))
+    trendpoly = numpy.poly1d(trend)
+    toReturn = []
+    for i in range(numPredictions):
+        toReturn.append(numpy.polyval(trendpoly, i))
+    return toReturn

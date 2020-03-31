@@ -45,7 +45,6 @@ def createChart(
         trendpoly = numpy.poly1d(trend)
         plt.plot(list(range(len(dates))),trendpoly(list(range(len(dates)))), "red", label="Trend")
         # print(numpy.polyval(trendpoly, 9))
-        # plt.title("")
     if type == "loglog":
         ax.loglog(list(range(len(dates))), list(cases))
     if type == "plot":
@@ -79,7 +78,7 @@ def createChart(
 
 caseTotals = getTotalCasesByDay(timeseries)
 
-""" Linear Regression """
+
 # case getCasesByCountry(timeseries) For multiple countries... TODO vandemjh
 # multipleRegress(list(range(len(caseTotals.keys()))), list(caseTotals.values()));
 
@@ -138,6 +137,23 @@ with open("index.html", "w") as html:
         + index[endDropdown : len(index)]
     )
 
+
+""" Linear Regression """
+pred = predict(list(range(len(caseTotals.keys()))), list(caseTotals.values()), numPredictions=300)
+with open("index.html", "r") as html:
+    index = str(html.read())
+with open("index.html", "w") as html:
+    startDropdown = index.find("<!-- PREDICTION_DATA_START_HERE -->") + len(
+        "<!-- PREDICTION_DATA_START_HERE -->"
+    )
+    endDropdown = index.find("// <!-- PREDICTION_DATA_STOP_HERE -->")
+    html.write(
+        index[0:startDropdown]
+        + "\n const predictions = "
+        + str(pred)
+        + "; \n"
+        + index[endDropdown : len(index)]
+    )
 
 casesByCountry = getCasesByCountry(timeseries)
 fig = plt.figure()
