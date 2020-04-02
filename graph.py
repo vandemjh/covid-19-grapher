@@ -149,7 +149,10 @@ with open("index.html", "w") as html:
     endDropdown = index.find("// <!-- PREDICTION_DATA_STOP_HERE -->")
     html.write(
         index[0:startDropdown]
-        + "\n const predictions = "
+        + "\nconst tomorrow = "
+        + str((datetime.date.today() - datetime.date(2020,1,22)).days + 1)
+        + "\nconst today = tomorrow - 1"
+        + ";\nconst predictions = "
         + str(pred)
         + "; \n"
         + index[endDropdown : len(index)]
@@ -212,9 +215,6 @@ toGifify = []
 for i in range(6):
     file = Image.open(createRateOfChangeGraph("change/change", i + 1))
     toGifify.append(file)
-    print(file)
-    # print("Success")
-
 toGifify[0].save("change.gif", save_all=True, append_images=toGifify[1:], duration=600, loop=0)
 # for img in toGifify:
 #     print((img.verify()))
