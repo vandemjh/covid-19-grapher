@@ -43,7 +43,12 @@ def createChart(
         ax.scatter(list(range(len(dates))), list(cases))
         trend = multipleRegress(list(range(len(dates))), list(cases))
         trendpoly = numpy.poly1d(trend)
-        plt.plot(list(range(len(dates))),trendpoly(list(range(len(dates)))), "red", label="Trend")
+        plt.plot(
+            list(range(len(dates))),
+            trendpoly(list(range(len(dates)))),
+            "red",
+            label="Trend",
+        )
         # print(numpy.polyval(trendpoly, 9))
     if type == "loglog":
         ax.loglog(list(range(len(dates))), list(cases))
@@ -66,7 +71,8 @@ def createChart(
         + str(dateTime.day)
         + " @ "
         + str(dateTime.hour if dateTime.hour < 12 else dateTime.hour - 11)
-        + (" AM" if dateTime.hour < 12 else " PM") + " GMT"
+        + (" AM" if dateTime.hour < 12 else " PM")
+        + " GMT"
     )
     plt.savefig(fileName)
     plt.close(fig)
@@ -139,7 +145,11 @@ with open("index.html", "w") as html:
 
 
 """ Linear Regression """
-pred = predict(list(range(len(caseTotals.keys()))), list(caseTotals.values()), numPredictions=300)
+pred = predict(
+    list(range(len(caseTotals.keys()))),
+    list(caseTotals.values()),
+    numPredictions=300,
+)
 with open("index.html", "r") as html:
     index = str(html.read())
 with open("index.html", "w") as html:
@@ -150,7 +160,7 @@ with open("index.html", "w") as html:
     html.write(
         index[0:startDropdown]
         + "\nconst tomorrow = "
-        + str((datetime.date.today() - datetime.date(2020,1,22)).days + 1)
+        + str((datetime.date.today() - datetime.date(2020, 1, 22)).days + 1)
         + "\nconst today = tomorrow - 1"
         + ";\nconst predictions = "
         + str(pred)
@@ -215,6 +225,12 @@ toGifify = []
 for i in range(6):
     file = Image.open(createRateOfChangeGraph("change/change", i + 1))
     toGifify.append(file)
-toGifify[0].save("change.gif", save_all=True, append_images=toGifify[1:], duration=600, loop=0)
+toGifify[0].save(
+    "change.gif",
+    save_all=True,
+    append_images=toGifify[1:],
+    duration=600,
+    loop=0,
+)
 # for img in toGifify:
 #     print((img.verify()))
