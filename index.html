@@ -123,7 +123,7 @@ const predictions = [22608.33903021387, 11824.991838654094, 3753.1027620488785, 
                 function drawChart() {
                   var data = new google.visualization.DataTable();
                   data.addColumn('number', 'Day');
-                  data.addColumn('number', 'Day');
+                  data.addColumn('number', 'Total Infections');
                   var toChart = []
                   var count = 0
                   predictions.forEach(x => toChart.push([count++,x]))
@@ -132,7 +132,7 @@ const predictions = [22608.33903021387, 11824.991838654094, 3753.1027620488785, 
                   );
                   var options = {
                     chart: {
-                      title: 'Prediction of Covid-19 Cases',
+                      title: 'Prediction of Covid-19 Cases Worldwide',
                       subtitle: 'In number of days since January 22nd 2020'
                     },
                     width: 600,
