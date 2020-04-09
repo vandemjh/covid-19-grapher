@@ -1,5 +1,14 @@
 import datetime
 
+# Inserts 'what' between startString and endString in file, replacing whatever is there
+def findAndReplace(file, what, startString, endString):
+    with open(file, "r") as toRead:
+        index = str(toRead.read())
+    with open(file, "w") as toWrite:
+        start = index.find(startString) + len(startString)
+        end = index.find(endString)
+        toWrite.write(index[0:start] + str(what) + index[end : len(index)])
+
 # Used to declutter x axis of the matplotlib plots
 def skipOver(dates, skipSize):
     toReturn = []
@@ -21,7 +30,6 @@ def getTotalCasesByDay(timeseries):
             else:
                 caseTotals[day["date"]] += day["confirmed"]
     return caseTotals
-
 
 # Returns the total cases per day for numberOfCountries as { country : { "date" : total cases on that date } }
 def getCasesByCountry(timeseries):

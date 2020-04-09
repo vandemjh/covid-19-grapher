@@ -13,7 +13,7 @@ from predict import *
 # Axis settings for matplotlib images
 AXIS_SETTINGS = [0.167, 0.167, 0.7, 0.7]
 # Countries to display in table on main page
-NUM_COUNTRIES_TO_DISPLAY = 5
+NUM_COUNTRIES_TO_DISPLAY = 8
 
 timeseries = json.loads(
     requests.get("https://pomber.github.io/covid19/timeseries.json").content
@@ -58,9 +58,7 @@ def createChart(
     ax.set_ylabel(yAxis)
     ax.legend()
 
-    plt.xticks(
-        range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
-    )
+    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
     dateTime = datetime.datetime.today()
     ax.set_title(
         "Number of cases in "
@@ -117,56 +115,39 @@ for country in mostInfected:
     table += "<td>" + country + "</td>"
     table += "<td>" + str(mostInfected[country]) + "</td></tr>"
 
-with open("index.html", "r") as html:
-    index = str(html.read())
-with open("index.html", "w") as html:
-    startTable = index.find("<!-- TABLE_DATA_START_HERE -->") + len(
-        "<!-- TABLE_DATA_START_HERE -->"
-    )
-    endTable = index.find("<!-- TABLE_DATA_END_HERE -->")
-    html.write(
-        index[0:startTable] + "\n" + table + "\n" + index[endTable : len(index)]
-    )
+findAndReplace(
+    "index.html",
+    table,
+    "<!-- TABLE_DATA_START_HERE -->",
+    "<!-- TABLE_DATA_END_HERE -->",
+)
 
-with open("index.html", "r") as html:
-    index = str(html.read())
-with open("index.html", "w") as html:
-    startDropdown = index.find("<!-- DROPDOWN_DATA_START_HERE -->") + len(
-        "<!-- DROPDOWN_DATA_START_HERE -->"
-    )
-    endDropdown = index.find("<!-- DROPDOWN_DATA_END_HERE -->")
-    html.write(
-        index[0:startDropdown]
-        + "\n"
-        + dropdown
-        + "\n"
-        + index[endDropdown : len(index)]
-    )
-
+findAndReplace(
+    "index.html",
+    dropdown,
+    "<!-- DROPDOWN_DATA_START_HERE -->",
+    "<!-- DROPDOWN_DATA_END_HERE -->",
+)
 
 """ Linear Regression """
 pred = predict(
-    list(range(len(caseTotals.keys()))),
-    list(caseTotals.values()),
-    numPredictions=300,
+    list(range(len(caseTotals.keys()))), list(caseTotals.values()), numPredictions=200,
 )
-with open("index.html", "r") as html:
-    index = str(html.read())
-with open("index.html", "w") as html:
-    startDropdown = index.find("<!-- PREDICTION_DATA_START_HERE -->") + len(
-        "<!-- PREDICTION_DATA_START_HERE -->"
-    )
-    endDropdown = index.find("// <!-- PREDICTION_DATA_STOP_HERE -->")
-    html.write(
-        index[0:startDropdown]
-        + "\nconst tomorrow = "
-        + str((datetime.date.today() - datetime.date(2020, 1, 22)).days + 1)
-        + "\nconst today = tomorrow - 1"
-        + ";\nconst predictions = "
-        + str(pred)
-        + "; \n"
-        + index[endDropdown : len(index)]
-    )
+
+findAndReplace(
+    "index.html",
+    "\nconst tomorrow = "
+    + str((datetime.date.today() - datetime.date(2020, 1, 22)).days + 1)
+    + "\nconst today = tomorrow - 1"
+    + ";\nconst predictions = "
+    + str(pred)
+    + "; \n",
+    "<!-- PREDICTION_DATA_START_HERE -->",
+    "// <!-- PREDICTION_DATA_STOP_HERE -->",
+)
+
+
+
 
 casesByCountry = getCasesByCountry(timeseries)
 fig = plt.figure()
@@ -181,13 +162,9 @@ for country in casesByCountry:
 plt.legend(loc="upper left")
 ax.set_xlabel("Dates")
 ax.set_ylabel("Number of Cases")
-plt.xticks(
-    range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
-)
+plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
 dateTime = datetime.datetime.today()
-ax.set_title(
-    "Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries"
-)
+ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
 plt.savefig("top")
 plt.close(fig)
 
@@ -205,9 +182,7 @@ def createRateOfChangeGraph(fileName, step):
     plt.legend(loc="upper left")
     ax.set_xlabel("Dates")
     ax.set_ylabel("Rate of change of cases")
-    plt.xticks(
-        range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
-    )
+    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
     dateTime = datetime.datetime.today()
     ax.set_title(
         "Rate of change of top "
@@ -226,11 +201,7 @@ for i in range(6):
     file = Image.open(createRateOfChangeGraph("change/change", i + 1))
     toGifify.append(file)
 toGifify[0].save(
-    "change.gif",
-    save_all=True,
-    append_images=toGifify[1:],
-    duration=600,
-    loop=0,
+    "change.gif", save_all=True, append_images=toGifify[1:], duration=600, loop=0,
 )
 # for img in toGifify:
 #     print((img.verify()))

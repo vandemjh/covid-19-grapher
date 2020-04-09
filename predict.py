@@ -31,6 +31,6 @@ def predict(dates, cases, numPredictions=100):
     trend = multipleRegress(list(range(len(dates))), list(cases))
     trendpoly = numpy.poly1d(trend)
     toReturn = []
-    for i in range(numPredictions):
-        toReturn.append(numpy.polyval(trendpoly, i))
+    for i in range(numPredictions + 1):
+        toReturn.append(0 if numpy.polyval(trendpoly, i) < 0 else numpy.polyval(trendpoly, i))
     return toReturn
