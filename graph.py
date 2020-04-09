@@ -15,6 +15,8 @@ AXIS_SETTINGS = [0.167, 0.167, 0.7, 0.7]
 # Countries to display in table on main page
 NUM_COUNTRIES_TO_DISPLAY = 8
 
+todaysDayNumber = (datetime.date.today() - datetime.date(2020, 1, 22)).days
+
 timeseries = json.loads(
     requests.get("https://pomber.github.io/covid19/timeseries.json").content
 )
@@ -119,14 +121,14 @@ findAndReplace(
     "index.html",
     table,
     "<!-- TABLE_DATA_START_HERE -->",
-    "<!-- TABLE_DATA_END_HERE -->",
+    "<!-- TABLE_DATA_END_HERE -->"
 )
 
 findAndReplace(
     "index.html",
     dropdown,
     "<!-- DROPDOWN_DATA_START_HERE -->",
-    "<!-- DROPDOWN_DATA_END_HERE -->",
+    "<!-- DROPDOWN_DATA_END_HERE -->"
 )
 
 """ Linear Regression """
@@ -137,7 +139,7 @@ pred = predict(
 findAndReplace(
     "index.html",
     "\nconst tomorrow = "
-    + str((datetime.date.today() - datetime.date(2020, 1, 22)).days + 1)
+    + str(todaysDayNumber + 1)
     + "\nconst today = tomorrow - 1"
     + ";\nconst predictions = "
     + str(pred)
@@ -148,7 +150,7 @@ findAndReplace(
 
 findAndReplace(
     "index.html",
-    "{:,.0f}".format(round(max(pred))) + " People infected on day " + str(pred.index(max(pred))),
+    "{:,.0f}".format(round(max(pred))) + " People infected on " + str(datetime.timedelta(days=(pred.index(max(pred)) - todaysDayNumber)) + datetime.date.today()),
     "<!-- EXPECTED_PEAK_START -->",
     "<!-- EXPECTED_PEAK_STOP -->",
 )
