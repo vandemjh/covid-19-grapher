@@ -146,6 +146,12 @@ findAndReplace(
     "// <!-- PREDICTION_DATA_STOP_HERE -->",
 )
 
+findAndReplace(
+    "index.html",
+    "{:,.0f}".format(round(max(pred))) + " People infected on day " + str(pred.index(max(pred))),
+    "<!-- EXPECTED_PEAK_START -->",
+    "<!-- EXPECTED_PEAK_STOP -->",
+)
 
 
 
