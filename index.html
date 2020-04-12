@@ -64,7 +64,17 @@
               <!-- Do not edit the dropdown comments they are used to populate the dropdown -->
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <!-- DROPDOWN_DATA_START_HERE -->
-<a class="dropdown-item" href="countries/us.png">US</a><a class="dropdown-item" href="countries/spain.png">Spain</a><a class="dropdown-item" href="countries/italy.png">Italy</a><a class="dropdown-item" href="countries/france.png">France</a><a class="dropdown-item" href="countries/germany.png">Germany</a><a class="dropdown-item" href="countries/china.png">China</a><a class="dropdown-item" href="countries/united kingdom.png">United Kingdom</a><a class="dropdown-item" href="countries/iran.png">Iran</a><!-- DROPDOWN_DATA_END_HERE -->
+                <a class="dropdown-item" href="countries/us.png">US</a
+                ><a class="dropdown-item" href="countries/spain.png">Spain</a
+                ><a class="dropdown-item" href="countries/italy.png">Italy</a
+                ><a class="dropdown-item" href="countries/france.png">France</a
+                ><a class="dropdown-item" href="countries/germany.png"
+                  >Germany</a
+                ><a class="dropdown-item" href="countries/china.png">China</a
+                ><a class="dropdown-item" href="countries/united kingdom.png"
+                  >United Kingdom</a
+                ><a class="dropdown-item" href="countries/iran.png">Iran</a
+                ><!-- DROPDOWN_DATA_END_HERE -->
               </div>
             </li>
             <li class="nav-item">
@@ -97,13 +107,13 @@
           <h4>
             Expected Peak:
             <!-- EXPECTED_PEAK_START -->
-4,865,782 People infected on 2020-05-13<!-- EXPECTED_PEAK_STOP -->
-          </h4>          
+            4,865,782 People infected on 2020-05-13<!-- EXPECTED_PEAK_STOP -->
+          </h4>
           <h4>
             Expected End:
             <!-- EXPECTED_END_START -->
-2020-05-16<!-- EXPECTED_END_STOP -->
-          </h4>          
+            2020-05-16<!-- EXPECTED_END_STOP -->
+          </h4>
 
           <br />
           <p id="today"></p>
@@ -118,10 +128,7 @@
 
             // <!-- PREDICTION_DATA_START_HERE -->
 
-const tomorrow = 81
-const today = tomorrow - 1;
-const predictions = [32424.49627092729, 17234.071779137128, 5671.47093981985, 0, 0, 0, 0, 0, 0, 0, 0, 5575.798649572553, 11745.4397042315, 18304.6519743887, 25080.564793937057, 31918.25213910807, 38680.20001058547, 45245.77381561875, 51510.68575013758, 57386.46218086466, 62799.91102743067, 67692.58914448683, 72020.2697038195, 75752.40957646369, 78871.61671481679, 81373.11753475262, 83264.22429773453, 84563.80249292996, 85301.73821932398, 85518.40556783303, 85264.13400341796, 84598.6757471993, 83590.67315856977, 82317.12611730894, 80862.85940569609, 79319.99009062466, 77787.39490571593, 76370.17763343312, 75179.13648719346, 74330.23149348493, 73944.05187397696, 74145.28342763596, 75062.17591283983, 76826.01042948932, 79570.56680112396, 83431.5909570346, 88546.2623143771, 95052.6611602877, 103089.23603399533, 112794.2711089359, 124305.3535748658, 137758.8410199747, 153289.3288130022, 171029.11748534912, 191107.68011319186, 213651.12969959856, 238781.68655663554, 266617.14568748994, 297270.34416858136, 330848.6285316689, 367453.3221459721, 407179.1926002863, 450113.9190850901, 496337.55977465777, 545922.0192091855, 598930.5156768891, 655417.0485961293, 715425.8658975216, 778990.9314060463, 846135.3922231741, 916871.0461089634, 991197.8088641883, 1069103.1817124372, 1150561.7186822533, 1235534.4939892155, 1323968.5694180736, 1415796.4617048528, 1510935.6099189837, 1609287.8428453815, 1710738.8463665955, 1815157.6308449178, 1922395.9985044638, 2032288.010813328, 2144649.4558656802, 2259277.3157638744, 2375949.234000558, 2494422.982840819, 2614435.9307042537, 2735704.509547102, 2857923.6822443902, 2980766.4099719874, 3103883.1195887458, 3226901.1710186447, 3349424.3246328537, 3471032.208631865, 3591279.7864276445, 3709696.8240256724, 3825787.3574071107, 3939029.159910923, 4048873.2096159467, 4154743.156723013, 4256034.790937119, 4352115.508849497, 4442323.781319668, 4525968.620857674, 4602329.049006153, 4670653.563722359, 4730159.606760404, 4780033.031053347, 4819427.568095209, 4847464.295323208, 4863231.103499814, 4865782.164094861, 4854137.396667671, 4827281.936249197, 4784165.600724076, 4723702.358212754, 4644769.7944537, 4546208.580185382, 4426821.938528414, 4285375.112367781, 4120594.831734786, 3931168.7811892657, 3715745.0672017187, 3472931.685535327, 3201295.9886282003, 2899364.152975359, 2565620.6465108595, 2198507.6959900996, 1796424.7543716538, 1357727.9681995355, 880729.6449853848, 363697.7205904111, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; 
-// <!-- PREDICTION_DATA_STOP_HERE -->
+            // <!-- PREDICTION_DATA_STOP_HERE -->
 
             google.charts.load("current", { packages: ["line"] });
             google.charts.setOnLoadCallback(drawChart);
@@ -190,7 +197,8 @@ const predictions = [32424.49627092729, 17234.071779137128, 5671.47093981985, 0,
                 <th>Total Cases</th>
               </tr>
               <!-- TABLE_DATA_START_HERE -->
-<tr><td>1</td><td>US</td><td>526396</td></tr><tr><td>2</td><td>Spain</td><td>163027</td></tr><tr><td>3</td><td>Italy</td><td>152271</td></tr><tr><td>4</td><td>France</td><td>130727</td></tr><tr><td>5</td><td>Germany</td><td>124908</td></tr><tr><td>6</td><td>China</td><td>83014</td></tr><tr><td>7</td><td>United Kingdom</td><td>79874</td></tr><tr><td>8</td><td>Iran</td><td>70029</td></tr><!-- TABLE_DATA_END_HERE -->
+
+              <!-- TABLE_DATA_END_HERE -->
             </table>
           </div>
           <div>
@@ -231,104 +239,3 @@ const predictions = [32424.49627092729, 17234.071779137128, 5671.47093981985, 0,
   </body>
 </html>
 <!-- Template used with permission from https://startbootstrap.com/templates/bare/ -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

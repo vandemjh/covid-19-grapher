@@ -65,7 +65,9 @@ def createChart(
     ax.set_ylabel(yAxis)
     ax.legend()
 
-    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+    plt.xticks(
+        range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
+    )
     dateTime = datetime.datetime.today()
     ax.set_title(
         "Number of cases in "
@@ -126,19 +128,21 @@ findAndReplace(
     "index.html",
     table,
     "<!-- TABLE_DATA_START_HERE -->",
-    "<!-- TABLE_DATA_END_HERE -->"
+    "<!-- TABLE_DATA_END_HERE -->",
 )
 
 findAndReplace(
     "index.html",
     dropdown,
     "<!-- DROPDOWN_DATA_START_HERE -->",
-    "<!-- DROPDOWN_DATA_END_HERE -->"
+    "<!-- DROPDOWN_DATA_END_HERE -->",
 )
 
 """ Linear Regression """
 pred = predict(
-    list(range(len(caseTotals.keys()))), list(caseTotals.values()), numPredictions=200,
+    list(range(len(caseTotals.keys()))),
+    list(caseTotals.values()),
+    numPredictions=200,
 )
 
 findAndReplace(
@@ -156,7 +160,12 @@ findAndReplace(
 
 findAndReplace(
     "index.html",
-    "{:,.0f}".format(round(max(pred))) + " People infected on " + str(datetime.timedelta(days=(pred.index(max(pred)) - todaysDayNumber)) + datetime.date.today()),
+    "{:,.0f}".format(round(max(pred)))
+    + " People infected on "
+    + str(
+        datetime.timedelta(days=(pred.index(max(pred)) - todaysDayNumber))
+        + datetime.date.today()
+    ),
     "<!-- EXPECTED_PEAK_START -->",
     "<!-- EXPECTED_PEAK_STOP -->"
 )
@@ -179,7 +188,6 @@ findAndReplace(
 )
 
 
-
 casesByCountry = getCasesByCountry(timeseries)
 fig = plt.figure()
 ax = fig.add_axes(AXIS_SETTINGS)
@@ -193,9 +201,13 @@ for country in casesByCountry:
 plt.legend(loc="upper left")
 ax.set_xlabel("Dates")
 ax.set_ylabel("Number of Cases")
-plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+plt.xticks(
+    range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
+)
 dateTime = datetime.datetime.today()
-ax.set_title("Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries")
+ax.set_title(
+    "Cases in top " + str(NUM_COUNTRIES_TO_DISPLAY) + " Infected Countries"
+)
 plt.savefig("top")
 plt.close(fig)
 
@@ -213,7 +225,9 @@ def createRateOfChangeGraph(fileName, step):
     plt.legend(loc="upper left")
     ax.set_xlabel("Dates")
     ax.set_ylabel("Rate of change of cases")
-    plt.xticks(range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45")
+    plt.xticks(
+        range(len(dates)), skipOver(list(dates), 3), size="small", rotation="45"
+    )
     dateTime = datetime.datetime.today()
     ax.set_title(
         "Rate of change of top "
@@ -232,7 +246,11 @@ for i in range(6):
     file = Image.open(createRateOfChangeGraph("change/change", i + 1))
     toGifify.append(file)
 toGifify[0].save(
-    "change.gif", save_all=True, append_images=toGifify[1:], duration=600, loop=0,
+    "change.gif",
+    save_all=True,
+    append_images=toGifify[1:],
+    duration=600,
+    loop=0,
 )
 # for img in toGifify:
 #     print((img.verify()))

@@ -35,7 +35,12 @@ def predict(dates, cases, numPredictions=100):
     trendpoly = numpy.poly1d(trend)
     toReturn = []
     for i in range(numPredictions + 1):
-        toReturn.append(0 if numpy.polyval(trendpoly, i) < 0 else numpy.polyval(trendpoly, i))
+        toReturn.append(
+            0
+            if numpy.polyval(trendpoly, i) < 0
+            else numpy.polyval(trendpoly, i)
+        )
     return toReturn
+
 
 # def dateArray()
