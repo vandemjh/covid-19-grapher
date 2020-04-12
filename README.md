@@ -1,4 +1,4 @@
-# COVID 19 Fatality/New Case Predictor
+# COVID-19 New Case Predictor
 https://vandemjh.github.io/covid-19-grapher/
 
 Proof of concept for a static site updated periodically with Github Actions.
