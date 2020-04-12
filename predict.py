@@ -1,12 +1,13 @@
 import numpy
 
-# import seaborn
-# from sklearn.model_selection import train_test_split
-# from sklearn.linear_model import LinearRegression
-# from sklearn import metrics
+import seaborn
+import pandas
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
 
-# Purely linear
 def regress(xIn, yIn):
+    # print(numpy.array(xIn).reshape(-1, 1))
     X_train, X_test, y_train, y_test = train_test_split(
         numpy.array(xIn).reshape(-1, 1),
         numpy.array(yIn),
@@ -19,6 +20,8 @@ def regress(xIn, yIn):
     # regressor = LinearRegression()
     # regressor.fit(orderedPairs, xIn)
     # Returns as an array of arrays because there can be many coefficients
+    # coeff_df = pandas.DataFrame(regressor.coef_, xIn.columns, columns=['Coefficient'])
+    # coeff_df
     return [regressor.coef_, regressor.intercept_]
 
 
