@@ -14,8 +14,8 @@ from predict import *
 AXIS_SETTINGS = [0.167, 0.167, 0.7, 0.7]
 # Countries to display in table on main page
 NUM_COUNTRIES_TO_DISPLAY = 8
-
 todaysDayNumber = (datetime.date.today() - datetime.date(2020, 1, 22)).days
+NUM_PREDICTIONS = 120
 
 timeseries = json.loads(
     requests.get("https://pomber.github.io/covid19/timeseries.json").content
@@ -142,7 +142,7 @@ findAndReplace(
 pred = predict(
     list(range(len(caseTotals.keys()))),
     list(caseTotals.values()),
-    numPredictions=200,
+    numPredictions=NUM_PREDICTIONS,
 )
 
 findAndReplace(
