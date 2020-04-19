@@ -154,7 +154,7 @@ findAndReplace(
     + str(pred)
     + "; \n",
     "<!-- PREDICTION_DATA_START_HERE -->",
-    "// <!-- PREDICTION_DATA_STOP_HERE -->"
+    "// <!-- PREDICTION_DATA_STOP_HERE -->",
 )
 
 
@@ -167,22 +167,29 @@ findAndReplace(
         + datetime.date.today()
     ),
     "<!-- EXPECTED_PEAK_START -->",
-    "<!-- EXPECTED_PEAK_STOP -->"
+    "<!-- EXPECTED_PEAK_STOP -->",
 )
 
 # print((max(pred)))
 clear = None
 try:
     for i in range(pred.index(max(pred))):
-        if (pred[pred.index(max(pred)) + i] <= 0):
-            clear = pred.index(pred[pred.index(max(pred)) + i]) + pred.index(max(pred))
+        if pred[pred.index(max(pred)) + i] <= 0:
+            clear = pred.index(pred[pred.index(max(pred)) + i]) + pred.index(
+                max(pred)
+            )
             break
 except:
     None
 # print(clear)
 findAndReplace(
     "index.html",
-    "The model is currently unable to accurately predict an end to the outbreak.  Maybe check back tomorrow." if clear is None else str(datetime.timedelta(days=(clear - todaysDayNumber)) + datetime.date.today()),
+    "The model is currently unable to accurately predict an end to the outbreak.  Maybe check back tomorrow."
+    if clear is None
+    else str(
+        datetime.timedelta(days=(clear - todaysDayNumber))
+        + datetime.date.today()
+    ),
     "<!-- EXPECTED_END_START -->",
     "<!-- EXPECTED_END_STOP -->",
 )

@@ -6,6 +6,7 @@ import numpy
 # from sklearn.linear_model import LinearRegression
 # from sklearn import metrics
 
+
 def regress(xIn, yIn):
     # print(numpy.array(xIn).reshape(-1, 1))
     X_train, X_test, y_train, y_test = train_test_split(
